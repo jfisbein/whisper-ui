@@ -48,7 +48,7 @@ function format($seconds) {
 
 $target_dir = "jobs/pending/";
 $language = getParamOrValue('language', 'es');
-$model = getParamOrValue('model', 'base');
+$model = getParamOrValue('model', 'medium');
 $debug = getParamOrValue('debug', 'false');
 
 if (isset($_FILES["fileToTranscribe"])) {
@@ -70,9 +70,9 @@ if (isset($_FILES["fileToTranscribe"])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Transcriptor</title>
+    <meta http-equiv="refresh" content="600">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 </head>
 
 <body class="m-4">
@@ -95,7 +95,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 <input class="form-check-input" type="radio" name="model" id="medium" value="medium" <?php if ($model == 'medium') echo 'checked'; ?>>
                 <label class="form-check-label" for="medium">Medium</label>
             </div>
-        <button type="submit" class="btn btn-primary">Subir</button>
+        <button type="submit" class="btn btn-primary mt-4">Subir Archivo</button>
     </form>
     
     <hr/>
@@ -106,7 +106,7 @@ if (isset($_FILES["fileToTranscribe"])) {
             <tr>
                 <th scope="col">Archivo</th>
                 <th scope="col">Fecha creación</th>
-                <th scope="col">Duración</th>
+                <th scope="col">Duración audio</th>
                 <th scope="col">Estado</th>
             </tr>
         </thead>
@@ -137,7 +137,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 <th scope="col">Archivo</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Fecha comienzo de procesado</th>
-                <th scope="col">Duración</th>
+                <th scope="col">Duración audio</th>
                 <th scope="col">Estado</th>
             </tr>
         </thead>
@@ -170,7 +170,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Fecha de comienzo de procesado</th>
                 <th scope="col">Fecha de fin de procesado</th>
-                <th scope="col">Duración</th>
+                <th scope="col">Duración audio</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Descargar</th>
             </tr>
