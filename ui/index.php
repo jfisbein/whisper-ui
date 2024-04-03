@@ -105,6 +105,7 @@ if (isset($_FILES["fileToTranscribe"])) {
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
+                <th scope="col">Modelo</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Duración audio</th>
                 <th scope="col">Estado</th>
@@ -118,6 +119,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 if ($data['transcription_status'] != 'procesando') {
                     echo "<tr>";
                     echo "<td> <a href='jobs/pending/" . $data['audio_file'] . "'>" . $data['audio_file'] . "</a></td>";
+                    echo "<td>" . $data['model'] . "</td>";
                     echo "<td>" . $data['created_at'] . "</td>";
                     echo "<td>" . format($data['audio_file_duration']) . "</td>";
                     echo "<td>" . $data['transcription_status'] . "</td>";
@@ -135,6 +137,7 @@ if (isset($_FILES["fileToTranscribe"])) {
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
+                <th scope="col">Modelo</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Fecha comienzo de procesado</th>
                 <th scope="col">Duración audio</th>
@@ -149,6 +152,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 if ($data['transcription_status'] == 'procesando') {
                     echo "<tr>";
                     echo "<td> <a href='jobs/pending/" . $data['audio_file'] . "' target='_blank'>" . $data['audio_file'] . "</a></td>";
+                    echo "<td>" . $data['model'] . "</td>";
                     echo "<td>" . $data['created_at'] . "</td>";
                     echo "<td>" . $data['transcription_start_date'] . "</td>";
                     echo "<td>" . format($data['audio_file_duration']) . "</td>";
@@ -167,6 +171,7 @@ if (isset($_FILES["fileToTranscribe"])) {
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
+                <th scope="col">Modelo</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Fecha de comienzo de procesado</th>
                 <th scope="col">Fecha de fin de procesado</th>
@@ -182,6 +187,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 $data = json_decode(file_get_contents($file), true);
                 echo "<tr>";
                 echo "<td> <a href='jobs/completed/" . $data['audio_file'] . "' target='_blank'>" . basename($data['audio_file']) . "</a></td>";
+                echo "<td>" . $data['model'] . "</td>";
                 echo "<td>" . $data['created_at'] . "</td>";
                 echo "<td>" . $data['transcription_start_date'] . "</td>";
                 echo "<td>" . $data['transcription_finish_date'] . "</td>";
