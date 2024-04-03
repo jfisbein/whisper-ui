@@ -2,7 +2,9 @@
 function getParamOrValue($paramName, $value)
 {
     $selectedValue = $value;
-    if (isset($_GET[$paramName])) {
+    if (isset($_POST[$paramName])) {
+        $selectedValue = trim($_POST[$paramName]);
+    } elseif (isset($_GET[$paramName])) {
         $selectedValue = trim($_GET[$paramName]);
     } elseif (isset($_COOKIE[$paramName])) {
         $selectedValue = trim($_COOKIE[$paramName]);
@@ -59,6 +61,8 @@ if (isset($_FILES["fileToTranscribe"])) {
     }
     move_uploaded_file($_FILES["fileToTranscribe"]["tmp_name"], $target_file);
     createJobFile($target_file, $target_dir, $language, $model);
+    header("Location: index.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -71,19 +75,33 @@ if (isset($_FILES["fileToTranscribe"])) {
 
 </head>
 
-<body>
+<body class="m-4">
     <h1>Transcriptor</h1>
 
+    <h2>Subir archivo</h2>
     <form action="index.php" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
+        <div class="m-4">
             <label for="file" class="form-label">Archivo de audio a transcribir</label>
             <input type="file" class="form-control" id="file" name="fileToTranscribe">
         </div>
+        <!-- Add radio to select model between base and medium -->
+        <div class="m-4">
+            <label for="model" class="form-label">Modelo</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="model" id="base" value="base" <?php if ($model == 'base') echo 'checked'; ?>>
+                <label class="form-check-label" for="base">Base</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="model" id="medium" value="medium" <?php if ($model == 'medium') echo 'checked'; ?>>
+                <label class="form-check-label" for="medium">Medium</label>
+            </div>
         <button type="submit" class="btn btn-primary">Subir</button>
     </form>
+    
+    <hr/>
 
     <h2>Transcripciones pendientes</h2>
-    <table class="table">
+    <table class="table" class="m-4">
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
@@ -113,7 +131,7 @@ if (isset($_FILES["fileToTranscribe"])) {
     <hr />
 
     <h2>Transcripciones en curso</h2>
-    <table class="table">
+    <table class="table" class="m-4">
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
@@ -130,7 +148,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 $data = json_decode(file_get_contents($file), true);
                 if ($data['transcription_status'] == 'procesando') {
                     echo "<tr>";
-                    echo "<td> <a href='jobs/pending/" . $data['audio_file'] . "'>" . $data['audio_file'] . "</a></td>";
+                    echo "<td> <a href='jobs/pending/" . $data['audio_file'] . "' target='_blank'>" . $data['audio_file'] . "</a></td>";
                     echo "<td>" . $data['created_at'] . "</td>";
                     echo "<td>" . $data['transcription_start_date'] . "</td>";
                     echo "<td>" . format($data['audio_file_duration']) . "</td>";
@@ -145,11 +163,12 @@ if (isset($_FILES["fileToTranscribe"])) {
     <hr />
 
     <h2>Transcipciones completadas</h2>
-    <table class="table">
+    <table class="table" class="m-4">
         <thead>
             <tr>
                 <th scope="col">Archivo</th>
                 <th scope="col">Fecha creación</th>
+                <th scope="col">Fecha de comienzo de procesado</th>
                 <th scope="col">Fecha de fin de procesado</th>
                 <th scope="col">Duración</th>
                 <th scope="col">Estado</th>
@@ -162,8 +181,9 @@ if (isset($_FILES["fileToTranscribe"])) {
             foreach ($files as $file) {
                 $data = json_decode(file_get_contents($file), true);
                 echo "<tr>";
-                echo "<td> <a href='jobs/completed/" . $data['audio_file'] . "'>" . basename($data['audio_file']) . "</a></td>";
+                echo "<td> <a href='jobs/completed/" . $data['audio_file'] . "' target='_blank'>" . basename($data['audio_file']) . "</a></td>";
                 echo "<td>" . $data['created_at'] . "</td>";
+                echo "<td>" . $data['transcription_start_date'] . "</td>";
                 echo "<td>" . $data['transcription_finish_date'] . "</td>";
                 echo "<td>" . format($data['audio_file_duration']) . "</td>";
                 echo "<td>" . $data['transcription_status'] . "</td>";
