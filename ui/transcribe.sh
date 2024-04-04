@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set -o errexit   # abort on nonzero exit status
+set -o nounset   # abort on unbound variable
+set -o pipefail  # don't hide errors within pipes
+#set -x           # bash debug mode
+
 function update() {
     local FILE=${1}
     local FIELD=${2}

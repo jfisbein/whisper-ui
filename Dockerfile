@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y ffmpeg pip git php-cli sed jq
 
-RUN pip install git+https://github.com/openai/whisper.git 
 RUN pip install -U whisper-ctranslate2
 
 WORKDIR /

@@ -88,12 +88,16 @@ if (isset($_FILES["fileToTranscribe"])) {
         <div class="m-4">
             <label for="model" class="form-label">Modelo</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="model" id="base" value="base" <?php if ($model == 'base') echo 'checked'; ?>>
-                <label class="form-check-label" for="base">Base</label>
+                <input class="form-check-input" type="radio" name="model" id="small" value="small" <?php if ($model == 'small') echo 'checked'; ?>>
+                <label class="form-check-label" for="small">Small</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="model" id="medium" value="medium" <?php if ($model == 'medium') echo 'checked'; ?>>
                 <label class="form-check-label" for="medium">Medium</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="model" id="large" value="large-v3" <?php if ($model == 'large-v3') echo 'checked'; ?>>
+                <label class="form-check-label" for="large">Large</label>
             </div>
         <button type="submit" class="btn btn-primary mt-4">Subir Archivo</button>
     </form>
