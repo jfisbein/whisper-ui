@@ -48,7 +48,7 @@ function format($seconds) {
 
 $target_dir = "jobs/pending/";
 $language = getParamOrValue('language', 'es');
-$model = getParamOrValue('model', 'medium');
+$model = getParamOrValue('model', 'large-v3');
 $debug = getParamOrValue('debug', 'false');
 
 if (isset($_FILES["fileToTranscribe"])) {
