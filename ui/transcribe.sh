@@ -31,7 +31,7 @@ for FILE in ./jobs/pending/*.json; do
         update "${FILE}" "transcription_start_date" "$(date '+%Y-%m-%d %H:%M:%S')"
 
         ## whisper --model "${MODEL}" --output_dir /ui/jobs/pending --output_format txt --task transcribe --language "${LANGUAGE}" --verbose True --fp16 False "/ui/jobs/pending/${AUDIO_FILE}"
-        whisper-ctranslate2 --model "${MODEL}" --output_dir /ui/jobs/pending --output_format txt --task transcribe --language "${LANGUAGE}" --verbose True --compute_type int8 --vad_filter True --model_dir /root/.cache/whisper "/ui/jobs/pending/${AUDIO_FILE}"
+        pipx run whisper-ctranslate2 --model "${MODEL}" --output_dir /ui/jobs/pending --output_format txt --task transcribe --language "${LANGUAGE}" --verbose True --compute_type int8 --vad_filter True --model_dir /root/.cache/whisper "/ui/jobs/pending/${AUDIO_FILE}"
         TRANSCRIPTION_FILE="${AUDIO_FILE%.*}.txt"
 
         update "${FILE}" "transcription_status" "completado"
