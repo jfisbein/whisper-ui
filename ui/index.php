@@ -139,6 +139,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                     echo "<td>" . format($data['audio_file_duration']) . "</td>";
                     echo "<td>" . $data['transcription_status'] . "</td>";
                     echo "</tr>";
+                    echo "\n";
                 }
             }
             ?>
@@ -173,6 +174,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                     echo "<td>" . format($data['audio_file_duration']) . "</td>";
                     echo "<td>" . $data['transcription_status'] . "</td>";
                     echo "</tr>";
+                    echo "\n";
                 }
             }
             ?>
@@ -212,6 +214,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 echo "<td>" . $data['transcription_status'] . "</td>";
                 echo "<td><a href='jobs/completed/" . $data['transcription_file'] . "' download>" . $data['transcription_file'] . "</a></td>";
                 echo "</tr>";
+                echo "\n";
             }
             ?>
         </tbody>
