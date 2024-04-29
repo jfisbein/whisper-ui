@@ -46,6 +46,13 @@ function format($seconds) {
     return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 }
 
+function duration($start, $end) {
+    $start = new DateTime($start);
+    $end = new DateTime($end);
+    $interval = $start->diff($end);
+    return $interval->format('%H:%I:%S');
+}
+
 $target_dir = "jobs/pending/";
 $language = getParamOrValue('language', 'es');
 $model = getParamOrValue('model', 'large-v3');
@@ -64,6 +71,8 @@ if (isset($_FILES["fileToTranscribe"])) {
     header("Location: index.php");
     exit();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -112,7 +121,7 @@ if (isset($_FILES["fileToTranscribe"])) {
             <tr>
                 <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
                 <th scope="col" data-field="model">Modelo</th>
-                <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
+                <th scope="col" data-field="created_at" data-sortable="true">Creación</th>
                 <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
                 <th scope="col" data-field="transcription_status">Estado</th>
             </tr>
@@ -144,8 +153,8 @@ if (isset($_FILES["fileToTranscribe"])) {
             <tr>
                 <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
                 <th scope="col" data-field="model">Modelo</th>
-                <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
-                <th scope="col" data-field="transcription_start_date" data-sortable="true">Fecha comienzo de procesado</th>
+                <th scope="col" data-field="created_at" data-sortable="true">Creación</th>
+                <th scope="col" data-field="transcription_start_date" data-sortable="true">Comienzo de procesado</th>
                 <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
                 <th scope="col" data-field="transcription_status">Estado</th>
             </tr>
@@ -179,8 +188,9 @@ if (isset($_FILES["fileToTranscribe"])) {
                 <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
                 <th scope="col" data-field="model">Modelo</th>
                 <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
-                <th scope="col" data-field="transcription_start_date" data-sortable="true">Fecha de comienzo de procesado</th>
-                <th scope="col" data-field="transcription_finish_date" data-sortable="true">Fecha de fin de procesado</th>
+                <th scope="col" data-field="transcription_start_date" data-sortable="true">Comienzo de procesado</th>
+                <th scope="col" data-field="transcription_finish_date" data-sortable="true">Fin de procesado</th>
+                <th scope="col" data-field="transcription_duration" data-sortable="true">Duración procesado</th>
                 <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
                 <th scope="col" data-field="transcription_status">Estado</th>
                 <th scope="col" data-field="download">Descargar</th>
@@ -197,6 +207,7 @@ if (isset($_FILES["fileToTranscribe"])) {
                 echo "<td>" . $data['created_at'] . "</td>";
                 echo "<td>" . $data['transcription_start_date'] . "</td>";
                 echo "<td>" . $data['transcription_finish_date'] . "</td>";
+                echo "<td>" . duration($data['transcription_start_date'], $data['transcription_finish_date']) . "</td>";
                 echo "<td>" . format($data['audio_file_duration']) . "</td>";
                 echo "<td>" . $data['transcription_status'] . "</td>";
                 echo "<td><a href='jobs/completed/" . $data['transcription_file'] . "' download>" . $data['transcription_file'] . "</a></td>";
