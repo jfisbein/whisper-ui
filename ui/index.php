@@ -73,6 +73,8 @@ if (isset($_FILES["fileToTranscribe"])) {
     <title>Transcriptor</title>
     <meta http-equiv="refresh" content="600">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/bootstrap-table.min.css">
 </head>
 
 <body class="m-4">
@@ -105,14 +107,14 @@ if (isset($_FILES["fileToTranscribe"])) {
     <hr/>
 
     <h2>Transcripciones pendientes</h2>
-    <table class="table" class="m-4">
+    <table class="table table-striped table-hover" class="m-4" data-toggle="table" data-sort-name="created_at" data-sort-order="desc">
         <thead>
             <tr>
-                <th scope="col">Archivo</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Duración audio</th>
-                <th scope="col">Estado</th>
+                <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
+                <th scope="col" data-field="model">Modelo</th>
+                <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
+                <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
+                <th scope="col" data-field="transcription_status">Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -137,15 +139,15 @@ if (isset($_FILES["fileToTranscribe"])) {
     <hr />
 
     <h2>Transcripciones en curso</h2>
-    <table class="table" class="m-4">
+    <table class="table table-striped table-hover" class="m-4" data-toggle="table">
         <thead>
             <tr>
-                <th scope="col">Archivo</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Fecha comienzo de procesado</th>
-                <th scope="col">Duración audio</th>
-                <th scope="col">Estado</th>
+                <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
+                <th scope="col" data-field="model">Modelo</th>
+                <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
+                <th scope="col" data-field="transcription_start_date" data-sortable="true">Fecha comienzo de procesado</th>
+                <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
+                <th scope="col" data-field="transcription_status">Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -171,17 +173,17 @@ if (isset($_FILES["fileToTranscribe"])) {
     <hr />
 
     <h2>Transcipciones completadas</h2>
-    <table class="table" class="m-4">
+    <table class="table table-striped table-hover" class="m-4" data-toggle="table" data-sort-name="created_at" data-sort-order="desc">
         <thead>
             <tr>
-                <th scope="col">Archivo</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Fecha de comienzo de procesado</th>
-                <th scope="col">Fecha de fin de procesado</th>
-                <th scope="col">Duración audio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Descargar</th>
+                <th scope="col" data-field="audio_file" data-sortable="true">Archivo</th>
+                <th scope="col" data-field="model">Modelo</th>
+                <th scope="col" data-field="created_at" data-sortable="true">Fecha creación</th>
+                <th scope="col" data-field="transcription_start_date" data-sortable="true">Fecha de comienzo de procesado</th>
+                <th scope="col" data-field="transcription_finish_date" data-sortable="true">Fecha de fin de procesado</th>
+                <th scope="col" data-field="audio_file_duration" data-sortable="true">Duración audio</th>
+                <th scope="col" data-field="transcription_status">Estado</th>
+                <th scope="col" data-field="download">Descargar</th>
             </tr>
         </thead>
         <tbody>
@@ -206,4 +208,5 @@ if (isset($_FILES["fileToTranscribe"])) {
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.5/dist/bootstrap-table.min.js"></script>
 </body>
